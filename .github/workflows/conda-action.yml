@@ -32,5 +32,5 @@ jobs:
       run: |
         conda info
         which R
-        R -e "devtools::install_github('Urban-Analytics/rampuaR', dependencies = F);"
+        python r-install.py
         

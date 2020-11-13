@@ -1,0 +1,1 @@
+devtools::install_github("Urban-Analytics/rampuaR", dependencies = F)
