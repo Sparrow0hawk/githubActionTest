@@ -1,0 +1,35 @@
+
+name: conda-action
+
+# Only run this for pushes to master, develop-AC and for pull requests to master
+on:
+  push:
+    branches:
+    - master
+
+# This job installs dependencies, build the book, and pushes it to `gh-pages`
+jobs:
+  pytest:
+    runs-on: ${{ matrix.os }}
+
+    name: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: ["ubuntu-latest"] # dropping windows-latest from test matrix due to issues with rpy2 issue #73
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: conda-incubator/setup-miniconda@v2
+      with:
+        environment-file: environment.yml
+        python-version: 3.7
+        auto-activate-base: false
+        activate-environment: test-env
+
+    - name: install R package
+      shell: bash -l {0}
+      run: |
+        conda info
+        R -e "install.packages('devtools', repos='https://cran.ma.imperial.ac.uk/'); devtools::install_github('Urban-Analytics/rampuaR', dependencies = F);"
+        
