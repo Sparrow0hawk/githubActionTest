@@ -31,5 +31,6 @@ jobs:
       shell: bash -l {0}
       run: |
         conda info
-        R -e "install.packages('devtools', repos='https://cran.ma.imperial.ac.uk/'); devtools::install_github('Urban-Analytics/rampuaR', dependencies = F);"
+        which R
+        R -e "devtools::install_github('Urban-Analytics/rampuaR', dependencies = F);"
         
